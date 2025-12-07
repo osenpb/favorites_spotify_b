@@ -1,0 +1,36 @@
+# ----------------------------------------------------------------------
+# 1. Directorios de Build y Compilación (Generados por Maven/Gradle)
+# ----------------------------------------------------------------------
+/target/
+/build/
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.log
+log/
+tmp/
+!**/src/main/**/target/classes/
+!**/src/main/**/resources/
+
+# ----------------------------------------------------------------------
+# 2. Configuración del IDE (IntelliJ IDEA, Eclipse, VS Code)
+# ----------------------------------------------------------------------
+
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+# Eclipse
+.classpath
+.project
+.settings/
+bin/
+
+# VS Code
+.vscode/
+
