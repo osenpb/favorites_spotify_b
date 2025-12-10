@@ -1,17 +1,22 @@
 package com.osen.favorites_spotify_backend.core.user_song.serviceImpl;
 
+import com.osen.favorites_spotify_backend.auth.domain.exceptions.SongNotFoundException;
+import com.osen.favorites_spotify_backend.auth.domain.exceptions.UserNotFoundException;
 import com.osen.favorites_spotify_backend.auth.domain.models.User;
 import com.osen.favorites_spotify_backend.auth.domain.repository.UserRepository;
-import com.osen.favorites_spotify_backend.core.dtos.Item;
+import com.osen.favorites_spotify_backend.core.spotify.dtos.Item;
 import com.osen.favorites_spotify_backend.core.helpers.SongMapper;
 import com.osen.favorites_spotify_backend.core.song.models.Song;
 import com.osen.favorites_spotify_backend.core.song.repository.SongRepository;
-import com.osen.favorites_spotify_backend.core.spotify.SpotifyService;
+import com.osen.favorites_spotify_backend.core.spotify.service.SpotifyService;
 import com.osen.favorites_spotify_backend.core.user_song.service.UserSongService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserSongServiceImpl implements UserSongService {
@@ -46,14 +51,22 @@ public class UserSongServiceImpl implements UserSongService {
 
     @Override
     public boolean deleteSongFromFavorites(Long userId, String songId) {
-        try{
-            User user = userRepository.findById(userId).orElseThrow();
-            Song sondToRemove = songRepository.findById(songId).orElseThrow();
-            user.getFavoriteSongs().remove(sondToRemove);
+        log.info("➡️ Eliminando canción. userId={}, songId={}", userId, songId);
 
+            User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User not found"));
+            Song sondToRemove = songRepository.findById(songId).orElseThrow(()-> new SongNotFoundException("Song not found with id: " + songId));
+            user.getFavoriteSongs().remove(sondToRemove);
+            userRepository.save(user);
             return true;
-        }catch (Exception e) {
-            throw new RuntimeException("Error al eliminar la cancion de favoritos", e);
-        }
+
+    }
+
+    @Override
+    public List<Song> findFavoriteSongsByUserId(Long userId) {
+
+        User user = userRepository.findById(userId).orElseThrow(
+                () -> new UserNotFoundException("User not found"));
+
+        return user.getFavoriteSongs();
     }
 }

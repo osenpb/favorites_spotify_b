@@ -1,4 +1,4 @@
-package com.osen.favorites_spotify_backend.core.config;
+package com.osen.favorites_spotify_backend.core.spotify.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

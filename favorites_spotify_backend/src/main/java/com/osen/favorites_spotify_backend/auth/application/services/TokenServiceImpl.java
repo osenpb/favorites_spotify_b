@@ -53,7 +53,7 @@ public class TokenServiceImpl implements TokenService {
         JwtClaimsSet claims = JwtClaimsSet.builder()
                 .subject(currenUser.getEmail())
                 .issuedAt(now)
-                .expiresAt(now.plus(jwtExpiration, ChronoUnit.MINUTES)) // el ChronoUnit convierte mi valor a minutos, sin eso seria solo milisegundos x defecto
+                .expiresAt(now.plus(jwtExpiration, ChronoUnit.MINUTES))
                 .claim("roles", roles)
                 .build();
 
@@ -115,9 +115,7 @@ public class TokenServiceImpl implements TokenService {
                     new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities()));
 
             return Map.of(
-                    "token", newAccessToken);
-            // la idea es que el front reemplace el token con el newAccessToken
-            // pero mantena el refresh en el front para que pueda expirar
+                    "token", newAccessToken); // luego puedes cambiar el nombre
 
         } catch (RuntimeException e) {
             throw new RuntimeException(e);

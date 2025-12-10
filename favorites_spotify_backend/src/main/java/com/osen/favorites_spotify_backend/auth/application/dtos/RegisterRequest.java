@@ -10,7 +10,7 @@ public record RegisterRequest(
         @Size(min = 4, message = "El username debe tener al menos 4 caracteres")
         String username,
 
-        @Email(message = "El correo debe ser unico")
+        @Email(message = "El formato del correo electrónico es inválido")
         @NotBlank
         String email,
 

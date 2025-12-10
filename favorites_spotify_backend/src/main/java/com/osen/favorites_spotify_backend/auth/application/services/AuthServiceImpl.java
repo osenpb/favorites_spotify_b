@@ -76,19 +76,10 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
 
             return Map.of(
 
-                    "token", token
+                    "access-token", token
                     // sin refreshToken x ahora
             );
 
-        } catch (BadCredentialsException e) {
-            log.error("ERROR: Credenciales incorrectas para: {}", loginRequestDTO.email());
-            throw new BadCredentialsException("Credenciales inválidas", e);
-        } catch (UsernameNotFoundException e) {
-            log.error("ERROR: Usuario no encontrado: {}", loginRequestDTO.email());
-            throw new UsernameNotFoundException("Usuario no encontrado", e);
-        } catch (DisabledException e) {
-            log.error("ERROR: Usuario deshabilitado: {}", loginRequestDTO.email());
-            throw new DisabledException("Usuario deshabilitado", e);
         } catch (Exception e) {
             log.error("ERROR INESPERADO durante login: {}", e.getMessage(), e);
             throw new RuntimeException("Error en autenticación generico", e);

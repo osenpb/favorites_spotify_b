@@ -21,8 +21,6 @@ public class AuthMapper {
 
     public static Authentication fromDto(final LoginRequest loginRequestDTO) {
         return new UsernamePasswordAuthenticationToken(loginRequestDTO.email(), loginRequestDTO.password());
-        // Por contrato se habia creado un username, pero no es obligatorio
-        // en este caso como username estoy usando el email
 
     }
 

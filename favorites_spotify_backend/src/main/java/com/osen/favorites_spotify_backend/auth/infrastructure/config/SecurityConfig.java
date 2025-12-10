@@ -30,14 +30,13 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource))
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // no se generara una cookie que guarde la info
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers("/admin/**").permitAll() //hasRole("ADMIN")
-                        .requestMatchers("/spotify/**").authenticated() //hasRole("ADMIN")
+                        .requestMatchers(API_VERSION + "/auth/**").permitAll()
+                        .requestMatchers(API_VERSION +"/admin/**").authenticated() //hasRole("ADMIN")
+                        .requestMatchers(API_VERSION + "/spotify/**").authenticated() //hasRole("USER")
                         .anyRequest().authenticated()
-                )//registra el filtro ANTES del de login por formulario
-//                .oauth2Login(Customizer.withDefaults()) // para registro OAuth2
+                )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }

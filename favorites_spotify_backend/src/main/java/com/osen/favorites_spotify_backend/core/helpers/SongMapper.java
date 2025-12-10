@@ -1,6 +1,6 @@
 package com.osen.favorites_spotify_backend.core.helpers;
 
-import com.osen.favorites_spotify_backend.core.dtos.Item;
+import com.osen.favorites_spotify_backend.core.spotify.dtos.Item;
 import com.osen.favorites_spotify_backend.core.song.models.Song;
 
 public class SongMapper {

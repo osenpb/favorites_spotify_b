@@ -13,5 +13,6 @@ public interface UserService {
     UserResponse save(User user);
     void deleteById(Long id);
     Optional<User> findByEmail(String email);
+    boolean update(User user);
 
 }

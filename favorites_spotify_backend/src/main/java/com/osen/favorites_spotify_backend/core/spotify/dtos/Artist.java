@@ -1,4 +1,4 @@
-package com.osen.favorites_spotify_backend.core.dtos;
+package com.osen.favorites_spotify_backend.core.spotify.dtos;
 
 public record Artist(
     String href,
