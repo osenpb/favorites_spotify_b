@@ -7,9 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 
 @Builder
@@ -43,7 +41,7 @@ public class User implements UserDetails {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "song_id")
     )
-    private List<Song> favoriteSongs = new ArrayList<>(); // aqui puede ser un set
+    private Set<Song> favoriteSongs = new HashSet<>();
 
 
     @Override

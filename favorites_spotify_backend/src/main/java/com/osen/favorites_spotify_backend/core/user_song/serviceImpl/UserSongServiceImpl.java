@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Slf4j
 @Service
@@ -51,7 +52,7 @@ public class UserSongServiceImpl implements UserSongService {
 
     @Override
     public boolean deleteSongFromFavorites(Long userId, String songId) {
-        log.info("➡️ Eliminando canción. userId={}, songId={}", userId, songId);
+        log.info("Eliminando canción. userId={}, songId={}", userId, songId);
 
             User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User not found"));
             Song sondToRemove = songRepository.findById(songId).orElseThrow(()-> new SongNotFoundException("Song not found with id: " + songId));
@@ -62,11 +63,11 @@ public class UserSongServiceImpl implements UserSongService {
     }
 
     @Override
-    public List<Song> findFavoriteSongsByUserId(Long userId) {
+    public Set<Song> findFavoriteSongsByUserId(Long userId) {
 
         User user = userRepository.findById(userId).orElseThrow(
                 () -> new UserNotFoundException("User not found"));
 
-        return user.getFavoriteSongs();
+        return Set.copyOf(user.getFavoriteSongs());
     }
 }

@@ -88,6 +88,7 @@ public class SpotifyService {
                     .header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
                     .retrieve()
                     .bodyToMono(SpotifyTrack.class)
+                    .retry(1)
                     .block();
         }
     }
